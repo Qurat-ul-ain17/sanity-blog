@@ -1,8 +1,9 @@
 import { client } from "@/sanity/lib/client";
 import Image from "next/image";
 import Link from "next/link";
+import { Post } from "@/types";
 
-async function getAllPosts() {
+async function getAllPosts(): Promise<Post[]> {
   try {
     const posts = await client.fetch(`
       *[_type == "post"]{
@@ -39,7 +40,7 @@ export default async function PostsPage() {
       Welcome to our blog archive! Explore our latest insights, tips, and guides on dental care.
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {posts.map((post: any) => (
+        {posts.map((post: Post) => (
           <div
             key={post._id}
             className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow"

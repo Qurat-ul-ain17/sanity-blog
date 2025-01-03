@@ -1,4 +1,4 @@
-export default {
+const blogConfig = {
   name: 'post',
   title: 'Post',
   type: 'document',
@@ -37,3 +37,5 @@ export default {
     },
   ],
 };
+
+export default blogConfig;

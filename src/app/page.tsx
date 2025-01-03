@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { client } from "@/sanity/lib/client";
+import { Post } from "@/types";
 import Image from "next/image";
 
   // Fetch posts data
-async function getPosts() {
+async function getPosts(): Promise<Post[]> {
   try {
     const data = await client.fetch(`
       *[_type == "post"]{
@@ -27,14 +28,14 @@ async function getPosts() {
 
 // BlogPosts Component
 export default async function BlogPosts() {
-  const posts = await getPosts();
+  const posts: Post[] = await getPosts();
 
   if (!posts || posts.length === 0) {
     return <div>No posts found</div>;
   }
   return (
   <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {posts.map((post: any) => (
+      {posts.map((post: Post) => (
         <div key={post._id}
         className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
           {post.mainImage?.asset?.url && (
